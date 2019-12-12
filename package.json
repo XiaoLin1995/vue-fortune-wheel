@@ -1,11 +1,29 @@
 {
-  "name": "vue-turntable",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-fortune-wheel",
+  "version": "0.1.3",
+  "author": "Xiaolin Zhu",
+  "license": "MIT",
+  "bugs": {
+    "email": "xiaolin.sky@gmail.com"
+  },
+  "keywords": [
+    "wheel-of-fortune",
+    "vue-wheel-of-fortune",
+    "vue-lucky-wheel",
+    "vue-luckywheel",
+    "vue-wheel",
+    "vue-turntable",
+    "vue-turnplate",
+    "vue转盘",
+    "vue-转盘"
+  ],
+  "description": "Component \"Wheel of Fortune\" for Vue",
+  "main": "lib/vue-fortune-wheel.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:lib": "vue-cli-service build --target lib --name vue-fortune-wheel --dest lib src/components/index.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",

@@ -1,24 +1,24 @@
-# vue-turntable
+# Vue-Lucky-Wheel
 
-## Project setup
-```
-yarn install
-```
+> Vue Lucky Wheel
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
 
-### Compiles and minifies for production
+## Install
+
+You can get it on npm.
+
 ```
-yarn build
+npm install vue-fortune-wheel
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+## Use
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```js
+import FortuneWheel from 'vue-fortune-wheel'
+
+export default {
+  components: {
+    FortuneWheel
+  }
+}
+```

@@ -1,0 +1,82 @@
+.vue-fortuneWheel {
+  display: inline-block;
+  position: relative;
+  font-size: 0;
+  overflow: hidden;
+  user-select: none;
+  max-width: 100%;
+  &, * {
+    box-sizing: border-box;
+  }
+}
+
+.fortuneWheel-box {
+  transition-property: transform;
+  canvas, img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.fortuneWheel-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-container {
+  position: relative;
+  cursor: pointer;
+  width: 40%;
+  height: 40%;
+}
+
+.fortuneWheel-btn{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  background: #15BD96;
+  color: #fff;
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:after{
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 22px #fff solid;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &:before{
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 18px #15BD96 solid;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%) translateY(6px);
+    z-index: 10;
+  }
+}
