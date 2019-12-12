@@ -1,6 +1,6 @@
-# Vue-Lucky-Wheel
+# Vue-Fortune-Wheel
 
-> Vue Lucky Wheel
+> Vue Fortune Wheel
 
 
 ## Demo
