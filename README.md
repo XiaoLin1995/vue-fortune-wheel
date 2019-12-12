@@ -3,6 +3,10 @@
 > Vue Lucky Wheel
 
 
+## Demo
+
+(Demo link)[https://xiaolin1995.github.io/vue-fortune-wheel/demo/]
+
 ## Install
 
 You can get it on npm.
@@ -15,6 +19,7 @@ npm install vue-fortune-wheel
 
 ```js
 import FortuneWheel from 'vue-fortune-wheel'
+import 'vue-fortune-wheel/lib/vue-fortune-wheel.css'
 
 export default {
   components: {
