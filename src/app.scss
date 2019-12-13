@@ -1,0 +1,26 @@
+#app {
+  padding: 60px 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+button {
+  margin-top: 40px;
+  padding: 16px 30px;
+  border: 0;
+  background: gray;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  transition: linear 0.2s background;
+  &.blue {
+    background: #45ace9;
+  }
+  &.red {
+    background: #dd3832;
+  }
+}
