@@ -41,6 +41,10 @@ export default {
       type: Number,
       default: 190 // 奖品位置距离圆心的距离
     },
+    lineHeight: {
+      type: Number,
+      default: 20 // 文本行高
+    },
     borderWidth: {
       type: Number,
       default: 0 // 圆的外边框
@@ -53,13 +57,13 @@ export default {
       type: String,
       default: 'GO' // 开始按钮的文本
     },
-    lineHeight: {
-      type: Number,
-      default: 20 // 文本行高
-    },
     btnWidth: {
       type: String,
       default: '170px' // 按钮的宽
+    },
+    fontSize: {
+      type: Number,
+      default: 34 // 奖品字号
     },
     maxTimes: {
       type: Number,
@@ -139,12 +143,28 @@ export default {
         '-webkit-transition-timing-function:': this.timingFun,
         'transition-timing-function': this.timingFun
       }
+    },
+    rotateBase() {
+      let angle = this.angleBase * 360
+      if (this.angleBase < 0) angle -= 360
+      return angle
     }
   },
   watch: {
-    prizeId(val) {
+    prizeId(newVal) {
       if (!this.isRotating) return
-      this.rotateEndDeg = this.angleBase * 360 + this.getTargetDeg(val)
+      let newAngle = this.getTargetDeg(newVal)
+      if (this.angleBase < 0) newAngle -= 360
+      
+      const prevEndDeg = this.rotateEndDeg
+      let nowEndDeg = this.angleBase * 360 + newAngle
+      const angle = 360 * (Math.floor((nowEndDeg - prevEndDeg) / 360))
+      if (this.angleBase >= 0) {
+        nowEndDeg += Math.abs(angle)
+      } else {
+        nowEndDeg += -360 - angle
+      }
+      this.rotateEndDeg = nowEndDeg
     }
   },
   mounted() {
@@ -173,7 +193,7 @@ export default {
         ctx.strokeStyle = this.borderColor
         ctx.lineWidth = this.borderWidth * 2
         // font 属性设置或返回画布上的文本内容的当前字体属性
-        ctx.font = '24px Microsoft YaHei'
+        ctx.font = `${this.fontSize}px Arial`
         this.prizes.forEach((row, i) => {
           const angle = i * arc - Math.PI / 2
           ctx.fillStyle = row.bgColor
@@ -213,13 +233,13 @@ export default {
       if (this.isRotating) return
       this.isRotating = true
       const prizeId = this.prizeId || this.getRandomPrize()
-      this.rotateEndDeg = this.angleBase * 360 + this.getTargetDeg(prizeId)
+      this.rotateEndDeg = this.rotateBase + this.getTargetDeg(prizeId)
       this.$emit("onRotateStart")
     },
     // 结束旋转
     onRotateEnd() {
       this.isRotating = false
-      this.rotateEndDeg -= this.angleBase * 360
+      this.rotateEndDeg %= 360
       this.playTimes += 1
       this.$emit('onRotateEnd', this.prizeRes.value)
     },
