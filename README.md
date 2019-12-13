@@ -117,10 +117,10 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | btnText | 按钮文本 (type: canvas) | String | GO |
 | btnWidth | 按钮的宽 (自行输入单位) | String | 170px |
 | fontSize | 奖品字号 (px) | Number | 34 |
-| maxTimes | 上限次数（超过此次数，会一直转到最大概率的那一个奖品, 0 时不限制次数） | Number | 0 |
-| duration | 完成一次旋转的时机 (单位 ms) | Number | 6000 |
+| maxTimes | 上限次数（超过此次数，会每次转到最大概率的那一个奖品, 0 时不限制次数） | Number | 0 |
+| duration | 完成一次旋转的时间 (单位 ms) | Number | 6000 |
 | timingFun | 旋转过渡的 css 时间函数 | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
-| angleBase | 旋转总角度的基数 (angleBase * 360 为一次旋转的总角度, 为负数时可反向旋转) | Number | 10 |
-| prizeId | 指定 id, 会一直旋转到此 id 的奖品 (为 0 时, 则根据每个奖品自身的概率, 可在旋转中改变值, 以此完成各种骚操作 ) | Number | 0 |
+| angleBase | 旋转圈数 (angleBase * 360 为一次旋转的总角度, 为负数时可反向旋转) | Number | 10 |
+| prizeId | 指定 id, 会每次旋转到此 id 的奖品 (为 0 时, 则根据每个奖品自身的概率, 可在旋转中改变值, 以此完成各种骚操作 ) | Number | 0 |
 | prizes | 奖品列表 (结构参考 Usage) | Array | / |
 
