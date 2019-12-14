@@ -58,11 +58,3 @@ export const mulNum = (a, b) => {
   }
   return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c)
 } 
-
-/**
- * 找出数组中该属性最大值的一列
- * @param {array} arr 
- * @param {string} key 
- * @example utilscore.maxNumBy([{num:55},{num:541},{num:41}],'num') // => {num: 541}
- */
-export const maxNumBy = (arr, key) => arr.find(item => item[key] === Math.max.apply(Math, arr.map(row => row[key])))

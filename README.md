@@ -112,13 +112,13 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
 | textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
+| textLength | 奖品一行几个字符 | Number | 6 |
 | lineHeight | 文本行高 (type: canvas) | Number | 20 |
 | borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
 | borderColor | 外边框的色值 (type: canvas) | String | transparent |
 | btnText | 按钮文本 (type: canvas) | String | GO |
 | btnWidth | 按钮的宽 (自行输入单位) | String | 170px |
 | fontSize | 奖品字号 (px) | Number | 34 |
-| maxTimes | 上限次数（超过此次数，会每次转到最大概率的那一个奖品, 0 时不限制次数） | Number | 0 |
 | duration | 完成一次旋转的时间 (单位 ms) | Number | 6000 |
 | timingFun | 旋转过渡的 css 时间函数 | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
 | angleBase | 旋转圈数 (angleBase * 360 为一次旋转的总角度, 为负数时可反向旋转) | Number | 10 |

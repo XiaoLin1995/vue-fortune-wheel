@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { randomNum, sumBy, maxNumBy } from '@/utils/number'
+import { randomNum, sumBy } from '@/utils/number'
 export default {
   name: 'FortuneWheel',
   props: {
@@ -44,6 +44,10 @@ export default {
     textRadius: {
       type: Number,
       default: 190 // 奖品位置距离圆心的距离
+    },
+    textLength: {
+      type: Number,
+      default: 6 // 奖品文本 1 行几个字符, 最多 2 航
     },
     lineHeight: {
       type: Number,
@@ -69,10 +73,6 @@ export default {
       type: Number,
       default: 34 // 奖品字号
     },
-    maxTimes: {
-      type: Number,
-      default: 0 // 0 为不限制； 大于 0 时, 若超过限制次数后, 之后每次结果概率最大的那个奖品
-    },
     duration: {
       type: Number,
       default: 6000 // 从旋转一次的时间, 单位毫秒
@@ -83,7 +83,7 @@ export default {
     },
     angleBase: {
       type: Number,
-      default: 10 // 旋转角度的基数 360 * 10
+      default: 10 // 旋转角度的基数, 旋转的圈数 360 * 10
     },
     prizeId: {
       type: Number,
@@ -133,10 +133,6 @@ export default {
     // 旋转一次的时长
     rotateDuration() {
       return this.isRotating ? this.duration / 1000 : 0
-    },
-    maxPrizeId() {
-      const maxPrize = maxNumBy([...this.prizes], 'probability')
-      return maxPrize.id
     },
     fortuneWheelStyle() {
       return {
@@ -221,8 +217,8 @@ export default {
           // rotate方法旋转当前的绘图
           ctx.rotate(angle + arc / 2 + Math.PI / 2)
           // 下面代码根据奖品类型、奖品名称长度渲染不同效果, 如字体、颜色、图片效果。（具体根据实际情况改变）
-          if (row.name.length > 6) { // 奖品名称长度超过一定范围
-            const content = [row.name.substring(0, 6), row.name.substring(6)]
+          if (row.name.length > this.textLength) { // 奖品名称长度超过一定范围
+            const content = [row.name.substring(0, this.textLength), row.name.substring(this.textLength)]
             for (let j = 0; j < content.length; j++) {
               ctx.fillText(content[j], -ctx.measureText(content[j]).width / 2, (j + 1) * this.lineHeight)
             }
@@ -254,8 +250,7 @@ export default {
     },
     // 获取随机奖品的 id
     getRandomPrize() {
-      let prizeId = this.prizesIdArr[randomNum(0, 100 * this.decimalSpaces - 1)]
-      if (this.maxTimes > 0 && this.playTimes > this.maxTimes) prizeId = this.maxPrizeId
+      const prizeId = this.prizesIdArr[randomNum(0, 100 * this.decimalSpaces - 1)]
       return prizeId
     },
     // 获取奖品所在的角度
