@@ -112,7 +112,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
 | textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
-| textLength | 奖品一行几个字符 | Number | 6 |
+| textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
 | lineHeight | 文本行高 (type: canvas) | Number | 20 |
 | borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
 | borderColor | 外边框的色值 (type: canvas) | String | transparent |
