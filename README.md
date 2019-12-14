@@ -1,8 +1,8 @@
 
 # Vue-Fortune-Wheel
 
-组件名称：命运之轮、幸运转盘  
-应用场景：抽奖
+组件名称: Wheel of Fortune, 命运之轮, 幸运转盘 
+应用场景: 抽奖
 
 ## Install
 ```
@@ -15,7 +15,7 @@ npm install vue-fortune-wheel
 
 ## Usage
 
-```
+```html
 <template>
   <div>
     <!-- type: image -->
@@ -109,6 +109,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | 参数 | 说明 | 类型 | 默认值 |
 | ------ | ------ | ------ | ----- |
 | type | 转盘的类型 (canvas, image) | String | canvas |
+| disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
 | textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
 | lineHeight | 文本行高 (type: canvas) | Number | 20 |

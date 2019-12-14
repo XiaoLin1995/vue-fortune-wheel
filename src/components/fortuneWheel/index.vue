@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-fortuneWheel" v-if="probabilityTotal === 100">
+  <div class="vue-fortuneWheel">
     <div
       ref="fortuneWheelBox"
       class="fortuneWheel-box"
@@ -33,6 +33,10 @@ export default {
       type: String,
       default: 'canvas' // canvas || image
     },
+    disabled: {
+      type: Boolean,
+      default: false // 是否禁用
+    },
     radius: {
       type: Number,
       default: 250 // 圆的半径
@@ -51,7 +55,7 @@ export default {
     },
     borderColor: {
       type: String,
-      default: 'transparent'
+      default: 'transparent' // 外边框的颜色
     },
     btnText: {
       type: String,
@@ -148,6 +152,9 @@ export default {
       let angle = this.angleBase * 360
       if (this.angleBase < 0) angle -= 360
       return angle
+    },
+    canRotate() {
+      return !this.disabled && !this.isRotating && this.probabilityTotal === 100
     }
   },
   watch: {
@@ -167,8 +174,10 @@ export default {
       this.rotateEndDeg = nowEndDeg
     }
   },
+  created() {
+    this.checkProbability()
+  },
   mounted() {
-    if(!this.checkProbability()) return
     if (this.type === 'canvas') this.drawCanvas()
   },
   methods: {
@@ -230,7 +239,7 @@ export default {
     },
     // 开始旋转
     onRotateStart() {
-      if (this.isRotating) return
+      if (!this.canRotate) return
       this.isRotating = true
       const prizeId = this.prizeId || this.getRandomPrize()
       this.rotateEndDeg = this.rotateBase + this.getTargetDeg(prizeId)
