@@ -96,10 +96,9 @@ export default {
   },
   data() {
     return {
-      playTimes: 0,
       isRotating: false, // 是否正在转
-      rotateEndDeg: 0,
-      prizeRes: {}
+      rotateEndDeg: 0, // 转盘旋转的角度
+      prizeRes: {} // 转盘的旋转结果
     }
   },
   computed: {
@@ -245,7 +244,6 @@ export default {
     onRotateEnd() {
       this.isRotating = false
       this.rotateEndDeg %= 360
-      this.playTimes += 1
       this.$emit('onRotateEnd', this.prizeRes.value)
     },
     // 获取随机奖品的 id
