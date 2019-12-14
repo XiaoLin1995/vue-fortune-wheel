@@ -1,7 +1,8 @@
 
 # Vue-Fortune-Wheel
 
-组件名称: Wheel of Fortune, 命运之轮, 幸运转盘 
+组件名称: Wheel of Fortune, 命运之轮, 幸运转盘
+
 应用场景: 抽奖
 
 ## Install
