@@ -47,7 +47,7 @@ npm install vue-fortune-wheel
 ```
 
 ```js
-import FortuneWheel from './components/fortuneWheel'
+import FortuneWheel from 'vue-fortune-wheel'
 import 'vue-fortune-wheel/lib/vue-fortune-wheel.css'
 
 export default {
@@ -88,8 +88,8 @@ export default {
     onRotateStart() {
       console.log('onRotateStart')
     },
-    onRotateEnd(val) {
-      alert(val)
+    onRotateEnd(prize) {
+      alert(prize.value)
     }
   }
 }
@@ -104,7 +104,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | 事件名称 | 说明 | 回调参数 |
 | ------ | ------ | ------ |
 | onRotateStart | 点击转盘按钮时触发 | / |
-| onRotateEnd | 转盘动画结束时触发 | 奖品的 value 值 |
+| onRotateEnd | 转盘动画结束时触发 | 奖品的整个 Object |
 
 ## FortuneWheel Attributes
 | 参数 | 说明 | 类型 | 默认值 |

@@ -83,8 +83,8 @@ export default {
     onRotateStart() {
       console.log('onRotateStart')
     },
-    onRotateEnd(val) {
-      alert(val)
+    onRotateEnd(prize) {
+      alert(prize.value)
     },
     onChangePrize() {
       this.prizeId = this.prizeId === 1 ? 2 : 1

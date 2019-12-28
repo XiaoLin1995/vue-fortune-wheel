@@ -244,7 +244,7 @@ export default {
     onRotateEnd() {
       this.isRotating = false
       this.rotateEndDeg %= 360
-      this.$emit('onRotateEnd', this.prizeRes.value)
+      this.$emit('onRotateEnd', this.prizeRes)
     },
     // 获取随机奖品的 id
     getRandomPrize() {
