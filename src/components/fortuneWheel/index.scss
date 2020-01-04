@@ -30,10 +30,11 @@
 }
 
 .btn-container {
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  width: 40%;
-  height: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fortuneWheel-btn{

@@ -16,8 +16,8 @@
       <slot name="wheel" v-else />
     </div>
     <div class="fortuneWheel-wrapper">
-      <div class="btn-container" :style="{ width: btnWidth, height: btnWidth}" @click="onRotateStart">
-        <div v-if="type === 'canvas'" class="fortuneWheel-btn">{{ btnText }}</div>
+      <div class="btn-container" @click="onRotateStart">
+        <div v-if="type === 'canvas'" class="fortuneWheel-btn" :style="{ width: btnWidth, height: btnWidth}">{{ btnText }}</div>
         <slot v-else name="button"/>
       </div>
     </div>
