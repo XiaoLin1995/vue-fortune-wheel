@@ -6,15 +6,19 @@
         <h2> Canvas </h2>
         <FortuneWheel
           style="width: 500px"
-          btnWidth="30%"
           borderColor="#584b43"
           :borderWidth="6"
           :prizes="prizes"
+          :btnWidth="btnWidth"
+          :beforeStart="checkBeforeStart"
           @onRotateStart="onRotateStart"
           @onRotateEnd="onRotateEnd"
-        />
+        />        
+        <button :class="{'disable': status === false, 'enable': status === true }" @click="onChangeStatus">
+            Current {{ status === false ?'Disable':'Enable'}}, after clicking this button the wheel is {{ status === true ?'Disable':'Enable'}}
+        </button>
       </div>
-
+      
       <!-- image -->
       <div class="col-md-6">
         <h2> Image </h2>
@@ -24,6 +28,7 @@
           :prizeId="prizeId"
           :prizes="prizes"
           :angleBase="-1"
+          :beforeStart="checkBeforeStart"
           @onRotateStart="onRotateStart"
           @onRotateEnd="onRotateEnd"
         >
@@ -31,9 +36,9 @@
           <img slot="button" src="@/assets/button.png" />
         </FortuneWheel>
         <button :class="{'blue': prizeId === 1, 'red': prizeId === 2}" @click="onChangePrize">
-          当前 100% {{ prizeId === 1 ? '蓝' : '红'}}, 点击此按钮后 100% {{ prizeId === 1 ? '红' : '蓝'}},
-          <br/> 可在旋转中尝试强行改变结果,
-          <br/> 最好在旋转减速前, 大约一半的时间之前, 最好一次旋转只改变一次
+            Current 100% {{ prizeId === 1?'Blue':'Red'}}, after clicking this button 100% {{ prizeId === 1?'Red':'Blue'}},
+           <br/> You can try to forcibly change the result during rotation,
+           <br/> It’s better to change only once per rotation before about half the time before the rotation is decelerated.
         </button>
       </div>
     </div>
@@ -51,14 +56,16 @@ export default {
   data() {
     return {
       prizeId: 1,
+      status: false,
+      btnWidth: '120px',
       prizes: [
         {
           id: 1,
-          name: 'Blue', // 奖品名
-          value: 'Blue\' value', // 奖品值
-          bgColor: '#45ace9', // 背景色
-          color: '#ffffff', // 字体色
-          probability: 30 // 概率，最多保留 4 位小数
+          name: 'Blue', // Prize name
+          value: 'Blue\' value', // Prize value
+          bgColor: '#45ace9', // Background color
+          color: '#ffffff', // Font color
+          probability: 30 // Probability, up to 4 decimal places
         },
         {
           id: 2,
@@ -80,6 +87,17 @@ export default {
     }
   },
   methods: {
+    // Q: Why  have this case?
+    // A: Because many cases have to check in the backend to see if users are eligible to dial before dialing!
+    checkBeforeStart(){
+      console.log('Check start')
+      if(!this.status){
+        alert('Rotation is not available')
+        return false;
+      }      
+      alert('Rotation is available')
+      return true;
+    },
     onRotateStart() {
       console.log('onRotateStart')
     },
@@ -88,6 +106,10 @@ export default {
     },
     onChangePrize() {
       this.prizeId = this.prizeId === 1 ? 2 : 1
+    },
+    onChangeStatus()
+    {
+      this.status = this.status === true ? false : true
     }
   }
 }

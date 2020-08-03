@@ -28,85 +28,89 @@
 import { randomNum, sumBy } from '@/utils/number'
 export default {
   name: 'FortuneWheel',
-  props: {
+  props: {    
+    beforeStart: {
+      type: Function,
+      default: () => true,
+    },
     type: {
       type: String,
       default: 'canvas' // canvas || image
     },
     disabled: {
       type: Boolean,
-      default: false // 是否禁用
+      default: false // Whether to disable
     },
     radius: {
       type: Number,
-      default: 250 // 圆的半径
+      default: 250 // Radius of circle
     },
     textRadius: {
       type: Number,
-      default: 190 // 奖品位置距离圆心的距离
+      default: 190 // The distance between the prize position and the center of the circle
     },
     textLength: {
       type: Number,
-      default: 6 // 奖品文本 1 行几个字符, 最多 2 航
+      default: 6 // Prize text 1 line of several characters, up to 2 lines
     },
     lineHeight: {
       type: Number,
-      default: 20 // 文本行高
+      default: 20 // Text line height
     },
     borderWidth: {
       type: Number,
-      default: 0 // 圆的外边框
+      default: 0 // Round outer border
     },
     borderColor: {
       type: String,
-      default: 'transparent' // 外边框的颜色
+      default: 'transparent' // Outer border color
     },
     btnText: {
       type: String,
-      default: 'GO' // 开始按钮的文本
+      default: 'GO' // Start button text
     },
     btnWidth: {
       type: String,
-      default: '170px' // 按钮的宽
+      default: '170px' // Width of button
     },
     fontSize: {
       type: Number,
-      default: 34 // 奖品字号
+      default: 34 // Font size of prize
     },
     duration: {
       type: Number,
-      default: 6000 // 从旋转一次的时间, 单位毫秒
+      default: 6000 // Time of one rotation (milliseconds)
     },
     timingFun: {
       type: String,
-      default: 'cubic-bezier(0.36, 0.95, 0.64, 1)' // 转盘的旋转的 transition 时间函数
+      default: 'cubic-bezier(0.36, 0.95, 0.64, 1)' // The transition time function of the rotation of the turntable
     },
     angleBase: {
       type: Number,
-      default: 10 // 旋转角度的基数, 旋转的圈数 360 * 10
+      default: 10 // The base of the rotation angle, the number of rotations 360 * 10
     },
     prizeId: {
       type: Number,
-      default: 0 // 0 时不使用, 其他值时, 转的结果为此 Id 的奖品, 可在旋转中改变
+      default: 0 // When it is 0, it is not used. For other values, the result of the rotation is the prize of this Id, which can be changed during rotation
     },
     prizes: {
       type: Array,
-      default: () => [] // 奖品列表
+      default: () => [] // List of prizes
     }
   },
   data() {
     return {
-      isRotating: false, // 是否正在转
-      rotateEndDeg: 0, // 转盘旋转的角度
-      prizeRes: {} // 转盘的旋转结果
+      isRotating: false, // Rotation status (currently not spinning)
+      rotateEndDeg: 0, // The angle of turntable rotation
+      prizeRes: {} // Rotation result of turntable
     }
   },
   computed: {
-    // 所有奖品的概率和
+    // Sum total probability of all prizes
     probabilityTotal() {
       return sumBy(this.prizes, row => row.probability)
     },
-    // 为了概率生成的奖品id的数组
+    // Array of prize ids generated for probability
     prizesIdArr() {
       const idArr = []
       this.prizes.forEach((row) => {
@@ -116,7 +120,8 @@ export default {
       })
       return idArr
     },
-    // 奖品的概率保留几位小数, 最多保留 4 位 => ( 0: 1, 1: 10, 2: 100, 3: 1000, 4: 10000 )
+    // The probability of the prize keeps several decimal places,
+    // up to 4 digits => (0: 1, 1: 10, 2: 100, 3: 1000, 4: 10000)
     decimalSpaces() {
       const sortArr = [...this.prizes].sort((a, b) => {
         const aRes = String(a.probability).split('.')[1]
@@ -129,7 +134,7 @@ export default {
       const idx = maxRes ? maxRes.length : 0
       return [1, 10, 100, 1000][idx > 4 ? 4 : idx]
     },
-    // 旋转一次的时长
+    // Time to spin once
     rotateDuration() {
       return this.isRotating ? this.duration / 1000 : 0
     },
@@ -176,7 +181,7 @@ export default {
     if (this.type === 'canvas') this.drawCanvas()
   },
   methods: {
-    // 检测总概率是否为 100
+    // Check whether the total probability is 100
     checkProbability() {
       if (this.probabilityTotal !== 100) {
         console.error('Prizes Is Error: Sum of probabilities is not 100!')
@@ -184,7 +189,7 @@ export default {
       }
       return true
     },
-    // 绘制canvas
+    // Draw canvas
     drawCanvas() {
       const canvas = this.$refs.fortuneWheelCanvas
       if (canvas.getContext) {
@@ -232,26 +237,32 @@ export default {
         })
       }
     },
-    // 开始旋转
-    onRotateStart() {
+    // Start spinning
+    async onRotateStart() {      
+      // Check from be
+      if(!await this.beforeStart()){
+        console.log('beforeStart');
+        return;
+      }
+
       if (!this.canRotate) return
       this.isRotating = true
       const prizeId = this.prizeId || this.getRandomPrize()
       this.rotateEndDeg = this.rotateBase + this.getTargetDeg(prizeId)
       this.$emit("onRotateStart")
     },
-    // 结束旋转
+    // End rotation
     onRotateEnd() {
       this.isRotating = false
       this.rotateEndDeg %= 360
       this.$emit('onRotateEnd', this.prizeRes)
     },
-    // 获取随机奖品的 id
+    // Get random prize id
     getRandomPrize() {
       const prizeId = this.prizesIdArr[randomNum(0, 100 * this.decimalSpaces - 1)]
       return prizeId
     },
-    // 获取奖品所在的角度
+    // Get the angle of the prize
     getTargetDeg(prizeId) {
       const angle = 360 / this.prizes.length
       const num = this.prizes.findIndex(row => row.id === prizeId)
