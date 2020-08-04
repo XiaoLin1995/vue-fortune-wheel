@@ -16,8 +16,8 @@
       <slot name="wheel" v-else />
     </div>
     <div class="fortuneWheel-wrapper">
-      <div class="btn-container" @click="onRotateStart">
-        <div v-if="type === 'canvas'" class="fortuneWheel-btn" :style="{ width: btnWidth, height: btnWidth}">{{ btnText }}</div>
+      <div class="btn-container" @click="onClickBtn">
+        <div v-if="type === 'canvas'" class="fortuneWheel-btn" :style="{ width: btnWidth + 'px', height: btnWidth + 'px'}">{{ btnText }}</div>
         <slot v-else name="button"/>
       </div>
     </div>
@@ -36,6 +36,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false // 是否禁用
+    },
+    verify: {
+      type: Boolean,
+      default: false // 是否开启验证
     },
     radius: {
       type: Number,
@@ -66,8 +70,8 @@ export default {
       default: 'GO' // 开始按钮的文本
     },
     btnWidth: {
-      type: String,
-      default: '170px' // 按钮的宽
+      type: Number,
+      default: 140 // 按钮的宽
     },
     fontSize: {
       type: Number,
@@ -87,7 +91,7 @@ export default {
     },
     prizeId: {
       type: Number,
-      default: 0 // 0 时不使用, 其他值时, 转的结果为此 Id 的奖品, 可在旋转中改变
+      default: 0 // 0 时不使用, 其他值时, 旋转的结果为此 Id 的奖品, 可在旋转中改变
     },
     prizes: {
       type: Array,
@@ -96,7 +100,7 @@ export default {
   },
   data() {
     return {
-      isRotating: false, // 是否正在转
+      isRotating: false, // 是否正在旋转
       rotateEndDeg: 0, // 转盘旋转的角度
       prizeRes: {} // 转盘的旋转结果
     }
@@ -127,7 +131,7 @@ export default {
       })
       const maxRes = String(sortArr[0].probability).split('.')[1]
       const idx = maxRes ? maxRes.length : 0
-      return [1, 10, 100, 1000][idx > 4 ? 4 : idx]
+      return [1, 10, 100, 1000, 10000][idx > 4 ? 4 : idx]
     },
     // 旋转一次的时长
     rotateDuration() {
@@ -232,19 +236,27 @@ export default {
         })
       }
     },
+    // 点击按钮
+    onClickBtn() {
+      if (!this.canRotate) return
+      if (this.verify) {
+        this.$emit('rotateStart', this.onRotateStart)
+        return
+      }
+      this.$emit('rotateStart')
+      this.onRotateStart()
+    },
     // 开始旋转
     onRotateStart() {
-      if (!this.canRotate) return
       this.isRotating = true
       const prizeId = this.prizeId || this.getRandomPrize()
       this.rotateEndDeg = this.rotateBase + this.getTargetDeg(prizeId)
-      this.$emit("onRotateStart")
     },
     // 结束旋转
     onRotateEnd() {
       this.isRotating = false
       this.rotateEndDeg %= 360
-      this.$emit('onRotateEnd', this.prizeRes)
+      this.$emit('rotateEnd', this.prizeRes)
     },
     // 获取随机奖品的 id
     getRandomPrize() {
@@ -255,7 +267,7 @@ export default {
     getTargetDeg(prizeId) {
       const angle = 360 / this.prizes.length
       const num = this.prizes.findIndex(row => row.id === prizeId)
-      this.prizeRes = this.prizes.filter(row => row.id === prizeId)[0] || []
+      this.prizeRes = this.prizes[num]
       return 360 - (angle * num + angle / 2)
     }
   }

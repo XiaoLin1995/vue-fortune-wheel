@@ -25,8 +25,8 @@ npm install vue-fortune-wheel
       type="image"
       :prizes="prizes"
       :angleBase="-10"
-      @onRotateStart="onRotateStart"
-      @onRotateEnd="onRotateEnd"
+      @rotateStart="onImageRotateStart"
+      @rotateEnd="onRotateEnd"
     >
       <img slot="wheel" src="@/assets/wheel.png" />
       <img slot="button" src="@/assets/button.png" />
@@ -35,12 +35,12 @@ npm install vue-fortune-wheel
     <!-- type: canvas -->
     <FortuneWheel
       style="width: 500px"
-      btnWidth="30%"
       borderColor="#584b43"
       :borderWidth="6"
       :prizes="prizes"
-      @onRotateStart="onRotateStart"
-      @onRotateEnd="onRotateEnd"
+      :verify="cavansVerify"
+      @rotateStart="onCanvasRotateStart"
+      @rotateEnd="onRotateEnd"
     />
   </div>
 </template>
@@ -56,6 +56,7 @@ export default {
   },
   data() {
     return {
+      cavansVerify: true, // canvas 模式的转盘是否开启验证
       prizes: [
         {
           id: 1, //* 每个奖品唯一的 id, 大于 0 的整数
@@ -85,17 +86,42 @@ export default {
     }
   },
   methods: {
-    onRotateStart() {
+    onImageRotateStart() {
       console.log('onRotateStart')
+    },
+    onCanvasRotateStart(rotate) {
+      if (this.canvasVerify) { // 开启验证则先验证
+        const verified = true // true: 测试通过验证, false: 测试未通过验证
+        this.DoServiceVerify(verified, 2000).then((verifiedRes) => {
+          rotate() // 传 ture 则开始旋转, 不传默认 false 不旋转
+          if (verifiedRes) {
+            console.log('验证通过, 开始旋转')
+            rotate() // 调用回调, 开始旋转
+            this.canvasVerify = false // 关闭验证模式
+          } else {
+            alert('未通过验证')
+          }
+        })
+        return
+      }
+      console.log('onCanvasRotateStart')
     },
     onRotateEnd(prize) {
       alert(prize.value)
+    },
+    // 模拟请求后端接口, verified: 是否通过验证, duration: 延迟时间
+    DoServiceVerify(verified, duration) {
+      return new Promise((resove) => {
+        setTimeout(() => {
+          resove(verified)
+        }, duration)
+      })
     }
   }
 }
 ```
 
-## Demo
+## Demo (App.vue)
 
 ### online
 https://xiaolin1995.github.io/vue-fortune-wheel/demo/
@@ -103,14 +129,15 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 ## FortuneWheel Events
 | 事件名称 | 说明 | 回调参数 |
 | ------ | ------ | ------ |
-| onRotateStart | 点击转盘按钮时触发 | / |
-| onRotateEnd | 转盘动画结束时触发 | 奖品的整个 Object |
+| rotateStart | 点击转盘按钮时触发 | 开启 verify 时, 会有回调, 调用回调函数才开始旋转 |
+| rotateEnd | 转盘动画结束时触发 | 奖品的整个 Object |
 
 ## FortuneWheel Attributes
 | 参数 | 说明 | 类型 | 默认值 |
 | ------ | ------ | ------ | ----- |
 | type | 转盘的类型 (canvas, image) | String | canvas |
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
+| verify | 是否开始验证 | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
 | textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
 | textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
@@ -118,7 +145,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 | borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
 | borderColor | 外边框的色值 (type: canvas) | String | transparent |
 | btnText | 按钮文本 (type: canvas) | String | GO |
-| btnWidth | 按钮的宽 (自行输入单位) | String | 170px |
+| btnWidth | 按钮的宽 (px) | Number | 140 |
 | fontSize | 奖品字号 (px) | Number | 34 |
 | duration | 完成一次旋转的时间 (单位 ms) | Number | 6000 |
 | timingFun | 旋转过渡的 css 时间函数 | String | cubic-bezier(0.36, 0.95, 0.64, 1) |

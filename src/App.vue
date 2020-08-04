@@ -6,12 +6,13 @@
         <h2> Canvas </h2>
         <FortuneWheel
           style="width: 500px"
-          btnWidth="30%"
+          :btnWidth="140"
           borderColor="#584b43"
           :borderWidth="6"
           :prizes="prizes"
-          @onRotateStart="onRotateStart"
-          @onRotateEnd="onRotateEnd"
+          :verify="canvasVerify"
+          @rotateStart="onCanvasRotateStart"
+          @rotateEnd="onRotateEnd"
         />
       </div>
 
@@ -23,18 +24,21 @@
           type="image"
           :prizeId="prizeId"
           :prizes="prizes"
-          :angleBase="-1"
-          @onRotateStart="onRotateStart"
-          @onRotateEnd="onRotateEnd"
+          :angleBase="-2"
+          @rotateStart="onImageRotateStart"
+          @rotateEnd="onRotateEnd"
         >
           <img slot="wheel" src="@/assets/wheel.png" style="transform: rotateZ(60deg)" />
-          <img slot="button" src="@/assets/button.png" />
+          <img slot="button" src="@/assets/button.png" style="width: 180px"/>
         </FortuneWheel>
-        <button :class="{'blue': prizeId === 1, 'red': prizeId === 2}" @click="onChangePrize">
-          当前 100% {{ prizeId === 1 ? '蓝' : '红'}}, 点击此按钮后 100% {{ prizeId === 1 ? '红' : '蓝'}},
-          <br/> 可在旋转中尝试强行改变结果,
+        <div class="btn-list">
+          <div class="btn" v-for="(item, idx) in prizes" :key="idx" :style="{ background: item.bgColor }" @click="onChangePrize(item.id)"></div>
+        </div>
+        <div class="wheel-result">
+          当前 100% <span :style="{ background: prizeRes.bgColor }"></span>
+          <br/> 点击按钮，可在旋转中强行改变结果,
           <br/> 最好在旋转减速前, 大约一半的时间之前, 最好一次旋转只改变一次
-        </button>
+        </div>
       </div>
     </div>
   </div>
@@ -51,11 +55,12 @@ export default {
   data() {
     return {
       prizeId: 1,
+      canvasVerify: true, // 是否开始 canvas 的验证模式
       prizes: [
         {
           id: 1,
           name: 'Blue', // 奖品名
-          value: 'Blue\' value', // 奖品值
+          value: 'Blue\'s value', // 奖品值
           bgColor: '#45ace9', // 背景色
           color: '#ffffff', // 字体色
           probability: 30 // 概率，最多保留 4 位小数
@@ -63,7 +68,7 @@ export default {
         {
           id: 2,
           name: 'Red',
-          value: 'Red\' value',
+          value: 'Red\'s value',
           bgColor: '#dd3832',
           color: '#ffffff',
           probability: 40
@@ -71,7 +76,7 @@ export default {
         {
           id: 3,
           name: 'Yellow',
-          value: 'Yellow\' value',
+          value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',
           probability: 30
@@ -79,15 +84,44 @@ export default {
       ]
     }
   },
+  computed: {
+    prizeRes() {
+      return this.prizes.filter(item => item.id === this.prizeId)[0] || []
+    }
+  },
   methods: {
-    onRotateStart() {
-      console.log('onRotateStart')
+    onCanvasRotateStart(rotate) {
+      if (this.canvasVerify) {
+        const verified = true // true: 测试通过验证, false: 测试未通过验证
+        this.DoServiceVerify(verified, 2000).then((verifiedRes) => {
+          rotate() // 传 ture 则开始旋转, 不传默认 false 不旋转
+          if (verifiedRes) {
+            console.log('验证通过, 开始旋转')
+            rotate() // 调用回调, 开始旋转
+            this.canvasVerify = false // 关闭验证模式
+          } else {
+            alert('未通过验证')
+          }
+        })
+        return
+      }
+      console.log('onCanvasRotateStart')
+    },
+    onImageRotateStart() {
+      console.log('onImageRotateStart')
     },
     onRotateEnd(prize) {
       alert(prize.value)
     },
-    onChangePrize() {
-      this.prizeId = this.prizeId === 1 ? 2 : 1
+    onChangePrize(id) {
+      this.prizeId = id
+    },
+    DoServiceVerify(verified, duration) { // 参数 1: 是否通过验证, 2: 延迟时间
+      return new Promise((resove) => {
+        setTimeout(() => {
+          resove(verified)
+        }, duration)
+      })
     }
   }
 }

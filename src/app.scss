@@ -24,3 +24,26 @@ button {
     background: #dd3832;
   }
 }
+
+.btn-list {
+  display: flex;
+  margin-bottom: 30px;
+  .btn {
+    flex: 1;
+    height: 40px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.wheel-result {
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+  }
+}
