@@ -132,8 +132,8 @@ export default {
 ## FortuneWheel Events
 | Event name | Description | Callback parameters |
 | ------ | ------ | ------ |
-| onRotateStart | Triggered when the dial button is clicked | When `verify` is true, there will be a callback, and the callback function will be called to start spinning |
-| onRotateEnd | Triggered at the end of the turntable animation | The entire prize Object |
+| rotateStart | Triggered when the dial button is clicked | When `verify` is true, there will be a callback, and the callback function will be called to start spinning |
+| rotateEnd | Triggered at the end of the turntable animation | The entire prize Object |
 
 ## FortuneWheel Attributes
 | Parameters | Description | Type | Default Value |
