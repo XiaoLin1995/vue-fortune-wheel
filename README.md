@@ -1,9 +1,9 @@
 
 # Vue-Fortune-Wheel
 
-组件名称: Wheel of Fortune, 命运之轮, 幸运转盘
+Component name: Wheel of Fortune, Wheel of Fortune, Wheel of Fortune
 
-应用场景: 抽奖
+Application scenario: lottery
 
 ## Install
 ```
@@ -13,6 +13,14 @@ or
 ```
 npm install vue-fortune-wheel
 ```
+## Language
+
+[English (By Google Translate)](./README.md)| [中文]](./README.CN.md)
+
+## Demo (App.vue)
+
+### online
+https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 
 ## Usage
 
@@ -56,20 +64,20 @@ export default {
   },
   data() {
     return {
-      cavansVerify: true, // canvas 模式的转盘是否开启验证
+      cavansVerify: true, // Whether the turntable in canvas mode is enabled for verification
       prizes: [
         {
-          id: 1, //* 每个奖品唯一的 id, 大于 0 的整数
-          name: 'Blue', // 奖品名, type 为 canvas 时的显示值 (type 为 image 时无需此参数)
-          value: 'Blue\' value', //* 奖品值, 旋转结束后的返回值
-          bgColor: '#45ace9', // 背景色 (type 为 image 时无需此参数)
-          color: '#ffffff', // 字体色 (type 为 image 时无需此参数)
-          probability: 30 //* 概率，最多保留 4 位小数 （所有奖品的概率和必须为 100）
+          id: 1, //* The unique id of each prize, an integer greater than 0
+          name: 'Blue', // Prize name, display value when type is canvas (this parameter is not needed when type is image)
+          value: 'Blue\'s value', //* Prize value, return value after spinning
+          bgColor: '#45ace9', // Background color (no need for this parameter when type is image)
+          color: '#ffffff', // Font color (this parameter is not required when type is image)
+          probability: 30 //* Probability, up to 4 decimal places (the sum of the probabilities of all prizes 
         },
         {
           id: 2,
           name: 'Red',
-          value: 'Red\' value',
+          value: 'Red\'s value',
           bgColor: '#dd3832',
           color: '#ffffff',
           probability: 40
@@ -77,7 +85,7 @@ export default {
         {
           id: 3,
           name: 'Yellow',
-          value: 'Yellow\' value',
+          value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',
           probability: 30
@@ -90,16 +98,16 @@ export default {
       console.log('onRotateStart')
     },
     onCanvasRotateStart(rotate) {
-      if (this.canvasVerify) { // 开启验证则先验证
-        const verified = true // true: 测试通过验证, false: 测试未通过验证
+      if (this.canvasVerify) {
+        const verified = true // true: the test passed the verification, false: the test failed the verification
         this.DoServiceVerify(verified, 2000).then((verifiedRes) => {
-          rotate() // 传 ture 则开始旋转, 不传默认 false 不旋转
+          rotate()
           if (verifiedRes) {
-            console.log('验证通过, 开始旋转')
-            rotate() // 调用回调, 开始旋转
-            this.canvasVerify = false // 关闭验证模式
+            console.log('Verification passed, start to rotate')
+            rotate() // Call the callback, start spinning
+            this.canvasVerify = false // Turn off verification mode
           } else {
-            alert('未通过验证')
+            alert('Failed verification')
           }
         })
         return
@@ -109,7 +117,7 @@ export default {
     onRotateEnd(prize) {
       alert(prize.value)
     },
-    // 模拟请求后端接口, verified: 是否通过验证, duration: 延迟时间
+    // Simulate the request back-end interface, verified: whether to pass the verification, duration: delay time
     DoServiceVerify(verified, duration) {
       return new Promise((resove) => {
         setTimeout(() => {
@@ -121,35 +129,29 @@ export default {
 }
 ```
 
-## Demo (App.vue)
-
-### online
-https://xiaolin1995.github.io/vue-fortune-wheel/demo/
-
 ## FortuneWheel Events
-| 事件名称 | 说明 | 回调参数 |
+| Event name | Description | Callback parameters |
 | ------ | ------ | ------ |
-| rotateStart | 点击转盘按钮时触发 | 开启 verify 时, 会有回调, 调用回调函数才开始旋转 |
-| rotateEnd | 转盘动画结束时触发 | 奖品的整个 Object |
+| onRotateStart | Triggered when the dial button is clicked | When `verify` is true, there will be a callback, and the callback function will be called to start spinning |
+| onRotateEnd | Triggered at the end of the turntable animation | The entire prize Object |
 
 ## FortuneWheel Attributes
-| 参数 | 说明 | 类型 | 默认值 |
+| Parameters | Description | Type | Default Value |
 | ------ | ------ | ------ | ----- |
-| type | 转盘的类型 (canvas, image) | String | canvas |
-| disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
-| verify | 是否开始验证 | Boolean | false |
-| radius | 圆的半径 (type: canvas) | Number | 250 |
-| textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
-| textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
-| lineHeight | 文本行高 (type: canvas) | Number | 20 |
-| borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
-| borderColor | 外边框的色值 (type: canvas) | String | transparent |
-| btnText | 按钮文本 (type: canvas) | String | GO |
-| btnWidth | 按钮的宽 (px) | Number | 140 |
-| fontSize | 奖品字号 (px) | Number | 34 |
-| duration | 完成一次旋转的时间 (单位 ms) | Number | 6000 |
-| timingFun | 旋转过渡的 css 时间函数 | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
-| angleBase | 旋转圈数 (angleBase * 360 为一次旋转的总角度, 为负数时可反向旋转) | Number | 10 |
-| prizeId | 指定 id, 会每次旋转到此 id 的奖品 (为 0 时, 则根据每个奖品自身的概率, 可在旋转中改变值, 以此完成各种骚操作 ) | Number | 0 |
-| prizes | 奖品列表 (结构参考 Usage) | Array | / |
+| type | Type of turntable (canvas, image) | String | canvas |
+| disabled | Whether to disable (after disabled, click the button will not rotate) | Boolean | false |
+| radius | Radius of circle (type: canvas) | Number | 250 |
+| textRadius | The distance of the text from the center of the circle (type: canvas) | Number | 190 |
+| textLength | A few characters in one line of the prize, beyond the line break (maximum two lines)| Number | 6 |
+| lineHeight | Text line height (type: canvas) | Number | 20 |
+| borderWidth | Round outer border (type: canvas) | Number | 0 |
+| borderColor | Color value of the outer border (type: canvas) | String | transparent |
+| btnText | Button text (type: canvas) | String | GO |
+| btnWidth | Button width (px) | Number | 140 |
+| fontSize | Prize size (px) | Number | 34 |
+| duration | Time to complete one rotation (unit: ms) | Number | 6000 |
+| timingFun | Css time function of rotation transition | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
+| angleBase | Number of rotations (angleBase * 360 is the total angle of one rotation, it can be reversed when it is a negative number) | Number | 10 |
+| prizeId | Specify the id, it will spin to the prize of this id every time (when it is 0, the value can be changed during the rotation according to the probability of each prize itself to complete various show operations) | Number | 0 |
+| prizes | Prize list (structure reference Usage) | Array | / |
 
