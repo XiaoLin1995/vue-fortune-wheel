@@ -15,7 +15,7 @@ npm install vue-fortune-wheel
 ```
 ## Language
 
-[English (By Google Translate)](./README.md)| [中文]](./README.CN.md)
+[English (By Google Translate)](./README.md)| [中文](./README.CN.md)
 
 ## Demo (App.vue)
 
