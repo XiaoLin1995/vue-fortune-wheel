@@ -140,7 +140,7 @@ export default {
 | ------ | ------ | ------ | ----- |
 | type | 转盘的类型 (canvas, image) | String | canvas |
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
-| verify | 是否开始验证 | Boolean | false |
+| verify | 是否开启验证 | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
 | textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
 | textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |

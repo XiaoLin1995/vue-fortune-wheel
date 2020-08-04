@@ -140,6 +140,7 @@ export default {
 | ------ | ------ | ------ | ----- |
 | type | Type of turntable (canvas, image) | String | canvas |
 | disabled | Whether to disable (after disabled, click the button will not rotate) | Boolean | false |
+| verify | Whether to enable verification mode | Boolean | false |
 | radius | Radius of circle (type: canvas) | Number | 250 |
 | textRadius | The distance of the text from the center of the circle (type: canvas) | Number | 190 |
 | textLength | A few characters in one line of the prize, beyond the line break (maximum two lines)| Number | 6 |
