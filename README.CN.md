@@ -101,7 +101,6 @@ export default {
       if (this.canvasVerify) {
         const verified = true // true: 测试通过验证, false: 测试未通过验证
         this.DoServiceVerify(verified, 2000).then((verifiedRes) => {
-          rotate()
           if (verifiedRes) {
             console.log('验证通过, 开始旋转')
             rotate() // 调用回调, 开始旋转
