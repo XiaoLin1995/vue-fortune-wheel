@@ -31,6 +31,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
     <FortuneWheel
       style="width: 500px"
       type="image"
+      :useWeight="true"
       :prizes="prizes"
       :angleBase="-10"
       @rotateStart="onImageRotateStart"
@@ -72,7 +73,8 @@ export default {
           value: 'Blue\'s value', //* Prize value, return value after spinning
           bgColor: '#45ace9', // Background color (no need for this parameter when type is image)
           color: '#ffffff', // Font color (this parameter is not required when type is image)
-          probability: 30 //* Probability, up to 4 decimal places (the sum of the probabilities of all prizes 
+          probability: 30, //* Probability, up to 4 decimal places (the sum of the probabilities of all prizes
+          weight: 1 // Weight, if useWeight is true, the probability is calculated by weight, so probability is invalid
         },
         {
           id: 2,
@@ -80,7 +82,8 @@ export default {
           value: 'Red\'s value',
           bgColor: '#dd3832',
           color: '#ffffff',
-          probability: 40
+          probability: 40,
+          weight: 1
         },
         {
           id: 3,
@@ -88,7 +91,8 @@ export default {
           value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',
-          probability: 30
+          probability: 30,
+          weight: 1
         }
       ]
     }
@@ -138,6 +142,7 @@ export default {
 | Parameters | Description | Type | Default Value |
 | ------ | ------ | ------ | ----- |
 | type | Type of turntable (canvas, image) | String | canvas |
+| useWeight | Whether to calculate probability by weight | Boolean | false |
 | disabled | Whether to disable (after disabled, click the button will not rotate) | Boolean | false |
 | verify | Whether to enable verification mode | Boolean | false |
 | radius | Radius of circle (type: canvas) | Number | 250 |

@@ -22,6 +22,7 @@
         <FortuneWheel
           style="width: 500px"
           type="image"
+          :useWeight="false"
           :prizeId="prizeId"
           :prizes="prizes"
           :angleBase="-2"
@@ -63,7 +64,8 @@ export default {
           value: 'Blue\'s value', // 奖品值
           bgColor: '#45ace9', // 背景色
           color: '#ffffff', // 字体色
-          probability: 30 // 概率，最多保留 4 位小数
+          probability: 30, // 概率，最多保留 4 位小数
+          weight: 1
         },
         {
           id: 2,
@@ -71,7 +73,8 @@ export default {
           value: 'Red\'s value',
           bgColor: '#dd3832',
           color: '#ffffff',
-          probability: 40
+          probability: 40,
+          weight: 1
         },
         {
           id: 3,
@@ -79,7 +82,8 @@ export default {
           value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',
-          probability: 30
+          probability: 30,
+          weight: 1
         }
       ]
     }

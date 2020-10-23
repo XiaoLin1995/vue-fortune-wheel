@@ -33,6 +33,10 @@ export default {
       type: String,
       default: 'canvas' // canvas || image
     },
+    useWeight: {
+      type: Boolean,
+      default: false // 以权重算概率
+    },
     disabled: {
       type: Boolean,
       default: false // 是否禁用
@@ -114,7 +118,7 @@ export default {
     prizesIdArr() {
       const idArr = []
       this.prizes.forEach((row) => {
-        const count = Math.round(row.probability * this.decimalSpaces)
+        const count = this.useWeight ? (row.weight || 0) : Math.round(row.probability * this.decimalSpaces)
         const arr = (new Array(count)).fill(row.id)
         idArr.push(...arr)
       })

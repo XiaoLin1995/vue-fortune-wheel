@@ -31,6 +31,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
     <FortuneWheel
       style="width: 500px"
       type="image"
+      :useWeight="true"
       :prizes="prizes"
       :angleBase="-10"
       @rotateStart="onImageRotateStart"
@@ -72,7 +73,8 @@ export default {
           value: 'Blue\' value', //* 奖品值, 旋转结束后的返回值
           bgColor: '#45ace9', // 背景色 (type 为 image 时无需此参数)
           color: '#ffffff', // 字体色 (type 为 image 时无需此参数)
-          probability: 30 //* 概率，最多保留 4 位小数 （所有奖品的概率和必须为 100）
+          probability: 30, //* 概率, 最多保留 4 位小数 （所有奖品的概率和必须为 100）
+          weight: 1 // 权重, 如果 useWeight 为 true, 则以 weight 计算概率 (probability 则无效)
         },
         {
           id: 2,
@@ -80,7 +82,8 @@ export default {
           value: 'Red\' value',
           bgColor: '#dd3832',
           color: '#ffffff',
-          probability: 40
+          probability: 40,
+          weight: 1
         },
         {
           id: 3,
@@ -88,7 +91,8 @@ export default {
           value: 'Yellow\' value',
           bgColor: '#fef151',
           color: '#ffffff',
-          probability: 30
+          probability: 30,
+          weight: 1
         }
       ]
     }
@@ -138,6 +142,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | ------ | ------ | ------ | ----- |
 | type | 转盘的类型 (canvas, image) | String | canvas |
+| useWeight | 是否以权重计算概率 | Boolean | false |
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
 | verify | 是否开启验证 | Boolean | false |
 | radius | 圆的半径 (type: canvas) | Number | 250 |
