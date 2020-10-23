@@ -266,7 +266,8 @@ export default {
     },
     // 获取随机奖品的 id
     getRandomPrize() {
-      const prizeId = this.prizesIdArr[randomNum(0, 100 * this.decimalSpaces - 1)]
+      const len = this.prizesIdArr.length
+      const prizeId = this.prizesIdArr[randomNum(0, len - 1)]
       return prizeId
     },
     // 获取奖品所在的角度
