@@ -74,7 +74,7 @@ export default {
           bgColor: '#45ace9', // 背景色 (type 为 image 时无需此参数)
           color: '#ffffff', // 字体色 (type 为 image 时无需此参数)
           probability: 30, //* 概率, 最多保留 4 位小数 （所有奖品的概率和必须为 100）
-          weight: 1 // 权重, 如果 useWeight 为 true, 则以 weight 计算概率 (probability 则无效)
+          weight: 1 // 权重, 如果 useWeight 为 true, 则以 weight 计算概率 (即 probability 无效), weight 必须为整数
         },
         {
           id: 2,

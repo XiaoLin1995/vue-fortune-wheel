@@ -74,7 +74,7 @@ export default {
           bgColor: '#45ace9', // Background color (no need for this parameter when type is image)
           color: '#ffffff', // Font color (this parameter is not required when type is image)
           probability: 30, //* Probability, up to 4 decimal places (the sum of the probabilities of all prizes
-          weight: 1 // Weight, if useWeight is true, the probability is calculated by weight, so probability is invalid
+          weight: 1 // Weight, if useWeight is true, the probability is calculated by weight (weight must be an integer), so probability is invalid
         },
         {
           id: 2,

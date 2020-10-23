@@ -22,7 +22,7 @@
         <FortuneWheel
           style="width: 500px"
           type="image"
-          :useWeight="false"
+          :useWeight="true"
           :prizeId="prizeId"
           :prizes="prizes"
           :angleBase="-2"

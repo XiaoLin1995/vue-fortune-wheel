@@ -112,20 +112,22 @@ export default {
   computed: {
     // 所有奖品的概率和
     probabilityTotal() {
-      return sumBy(this.prizes, row => row.probability)
+      if (this.useWeight) return 100
+      return sumBy(this.prizes, row => row.probability || 0)
     },
     // 为了概率生成的奖品id的数组
     prizesIdArr() {
       const idArr = []
       this.prizes.forEach((row) => {
-        const count = this.useWeight ? (row.weight || 0) : Math.round(row.probability * this.decimalSpaces)
-        const arr = (new Array(count)).fill(row.id)
+        const count = this.useWeight ? (row.weight || 0) : ((row.probability || 0) * this.decimalSpaces)
+        const arr = (new Array(window.parseInt(count))).fill(row.id)
         idArr.push(...arr)
       })
       return idArr
     },
     // 奖品的概率保留几位小数, 最多保留 4 位 => ( 0: 1, 1: 10, 2: 100, 3: 1000, 4: 10000 )
     decimalSpaces() {
+      if (this.useWeight) return 1
       const sortArr = [...this.prizes].sort((a, b) => {
         const aRes = String(a.probability).split('.')[1]
         const bRes = String(b.probability).split('.')[1]
