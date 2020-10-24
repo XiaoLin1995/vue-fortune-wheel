@@ -1,43 +1,27 @@
-.vue-fortuneWheel {
-  display: inline-block;
+.fw-container {
   position: relative;
+  display: inline-block;
   font-size: 0;
   overflow: hidden;
-  user-select: none;
-  max-width: 100%;
-  &, * {
-    box-sizing: border-box;
-  }
-}
-
-.fortuneWheel-box {
-  transition-property: transform;
   canvas, img {
     display: block;
     width: 100%;
   }
 }
 
-.fortuneWheel-wrapper {
+.fw-btn {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-.btn-container {
-  position: absolute;
-  cursor: pointer;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.fortuneWheel-btn{
+.fw-btn__btn {
   position: relative;
   width: 100%;
   height: 100%;
@@ -80,4 +64,8 @@
     transform: translate(-50%) translateY(6px);
     z-index: 10;
   }
+}
+
+.fw-btn__image {
+  display: inline-block;
 }

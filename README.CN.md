@@ -122,9 +122,9 @@ export default {
     },
     // 模拟请求后端接口, verified: 是否通过验证, duration: 延迟时间
     DoServiceVerify(verified, duration) {
-      return new Promise((resove) => {
+      return new Promise((resolve) => {
         setTimeout(() => {
-          resove(verified)
+          resolve(verified)
         }, duration)
       })
     }
@@ -145,15 +145,15 @@ export default {
 | useWeight | 是否以权重计算概率 | Boolean | false |
 | disabled | 是否禁用 (禁用后, 点击按钮不会旋转) | Boolean | false |
 | verify | 是否开启验证 | Boolean | false |
-| radius | 圆的半径 (type: canvas) | Number | 250 |
-| textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
-| textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
-| lineHeight | 文本行高 (type: canvas) | Number | 20 |
-| borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
-| borderColor | 外边框的色值 (type: canvas) | String | transparent |
-| btnText | 按钮文本 (type: canvas) | String | GO |
-| btnWidth | 按钮的宽 (px) | Number | 140 |
-| fontSize | 奖品字号 (px) | Number | 34 |
+| canvas.radius | 圆的半径 (type: canvas) | Number | 250 |
+| canvas.textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
+| canvas.textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
+| canvas.lineHeight | 文本行高 (type: canvas) | Number | 20 |
+| canvas.borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
+| canvas.borderColor | 外边框的色值 (type: canvas) | String | transparent |
+| canvas.btnText | 按钮文本 (type: canvas) | String | GO |
+| canvas.btnWidth | 按钮的宽 (px) | Number | 140 |
+| canvas.fontSize | 奖品字号 (px) | Number | 34 |
 | duration | 完成一次旋转的时间 (单位 ms) | Number | 6000 |
 | timingFun | 旋转过渡的 css 时间函数 | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
 | angleBase | 旋转圈数 (angleBase * 360 为一次旋转的总角度, 为负数时可反向旋转) | Number | 10 |

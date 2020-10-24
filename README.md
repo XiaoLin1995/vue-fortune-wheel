@@ -44,8 +44,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
     <!-- type: canvas -->
     <FortuneWheel
       style="width: 500px"
-      borderColor="#584b43"
-      :borderWidth="6"
+      :canvas="canvasOptions"
       :prizes="prizes"
       :verify="cavansVerify"
       @rotateStart="onCanvasRotateStart"
@@ -66,6 +65,10 @@ export default {
   data() {
     return {
       cavansVerify: true, // Whether the turntable in canvas mode is enabled for verification
+      canvasOptions: {
+        borderWidth: 6,
+        borderColor: '#584b43'
+      },
       prizes: [
         {
           id: 1, //* The unique id of each prize, an integer greater than 0
@@ -122,9 +125,9 @@ export default {
     },
     // Simulate the request back-end interface, verified: whether to pass the verification, duration: delay time
     DoServiceVerify(verified, duration) {
-      return new Promise((resove) => {
+      return new Promise((resolve) => {
         setTimeout(() => {
-          resove(verified)
+          resolve(verified)
         }, duration)
       })
     }
@@ -145,15 +148,15 @@ export default {
 | useWeight | Whether to calculate probability by weight | Boolean | false |
 | disabled | Whether to disable (after disabled, click the button will not rotate) | Boolean | false |
 | verify | Whether to enable verification mode | Boolean | false |
-| radius | Radius of circle (type: canvas) | Number | 250 |
-| textRadius | The distance of the text from the center of the circle (type: canvas) | Number | 190 |
-| textLength | A few characters in one line of the prize, beyond the line break (maximum two lines)| Number | 6 |
-| lineHeight | Text line height (type: canvas) | Number | 20 |
-| borderWidth | Round outer border (type: canvas) | Number | 0 |
-| borderColor | Color value of the outer border (type: canvas) | String | transparent |
-| btnText | Button text (type: canvas) | String | GO |
-| btnWidth | Button width (px) | Number | 140 |
-| fontSize | Prize size (px) | Number | 34 |
+| canvas.radius | Radius of circle (type: canvas) | Number | 250 |
+| canvas.textRadius | The distance of the text from the center of the circle (type: canvas) | Number | 190 |
+| canvas.textLength | A few characters in one line of the prize, beyond the line break (maximum two lines)| Number | 6 |
+| canvas.lineHeight | Text line height (type: canvas) | Number | 20 |
+| canvas.borderWidth | Round outer border (type: canvas) | Number | 0 |
+| canvas.borderColor | Color value of the outer border (type: canvas) | String | transparent |
+| canvas.btnText | Button text (type: canvas) | String | GO |
+| canvas.btnWidth | Button width (px) | Number | 140 |
+| canvas.fontSize | Prize size (px) | Number | 34 |
 | duration | Time to complete one rotation (unit: ms) | Number | 6000 |
 | timingFun | Css time function of rotation transition | String | cubic-bezier(0.36, 0.95, 0.64, 1) |
 | angleBase | Number of rotations (angleBase * 360 is the total angle of one rotation, it can be reversed when it is a negative number) | Number | 10 |
