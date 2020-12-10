@@ -53,6 +53,7 @@ interface CanvasConfig {
   radius: number;
   textRadius: number;
   textLength: number;
+  textDirection: string;
   lineHeight: number;
   borderWidth: number;
   borderColor: string;
@@ -65,6 +66,7 @@ const canvasDefaultConfig = {
   radius: 250, // 圆的半径
   textRadius: 190, // 奖品位置距离圆心的距离
   textLength: 6, // 奖品文本 1 行几个字符, 最多 2 行
+  textDirection: 'horizontal', // 奖品文本方向
   lineHeight: 20, // 文本行高
   borderWidth: 0, // 圆的外边框
   borderColor: 'transparent', // 外边框的颜色
@@ -262,15 +264,18 @@ export default Vue.extend({
     },
     // 绘制奖品文本
     drawPrizeText (ctx: CanvasRenderingContext2D, angle: number, arc: number, name: string) {
-      const { lineHeight, textLength } = this.canvasConfig
+      const { lineHeight, textLength, textDirection } = this.canvasConfig
       // 下面代码根据奖品类型、奖品名称长度渲染不同效果, 如字体、颜色、图片效果。（具体根据实际情况改变）
       const content = getStrArray(name, textLength)
       if (content === null) return
-      ctx.rotate(angle + arc / 2 + Math.PI / 2)
-      content.push(name.replace(content.join(''), ''))
+      textDirection === 'vertical' ? ctx.rotate(angle + arc / 2 + Math.PI) : ctx.rotate(angle + arc / 2 + Math.PI / 2)
       content.forEach((text, idx) => {
-        const textX = -ctx.measureText(text).width / 2
-        const textY = (idx + 1) * lineHeight
+        let textX = -ctx.measureText(text).width / 2
+        let textY = (idx + 1) * lineHeight
+        if (textDirection === 'vertical') {
+          textX = 0
+          textY = (idx + 1) * lineHeight - content.length * lineHeight / 2
+        }
         ctx.fillText(text, textX, textY)
       })
     },

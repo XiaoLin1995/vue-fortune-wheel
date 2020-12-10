@@ -17,7 +17,7 @@ npm install vue-fortune-wheel
 
 [English (By Google Translate)](./README.md)| [中文](./README.CN.md)
 
-## Demo (App.vue)
+## Demo
 
 ### online
 https://xiaolin1995.github.io/vue-fortune-wheel/demo/
@@ -150,7 +150,8 @@ export default {
 | verify | Whether to enable verification mode | Boolean | false |
 | canvas.radius | Radius of circle (type: canvas) | Number | 250 |
 | canvas.textRadius | The distance of the text from the center of the circle (type: canvas) | Number | 190 |
-| canvas.textLength | A few characters in one line of the prize, beyond the line break (maximum two lines)| Number | 6 |
+| canvas.textLength | A few characters in one line of the prize, beyond the line break (maximum two lines) | Number | 6 |
+| canvas.textDirection | Prize text direction (horizontal, vertical) | String | horizontal |
 | canvas.lineHeight | Text line height (type: canvas) | Number | 20 |
 | canvas.borderWidth | Round outer border (type: canvas) | Number | 0 |
 | canvas.borderColor | Color value of the outer border (type: canvas) | String | transparent |

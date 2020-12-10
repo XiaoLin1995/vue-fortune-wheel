@@ -17,7 +17,7 @@ npm install vue-fortune-wheel
 
 [English (By Google Translate)](./README.md)| [中文](./README.CN.md)
 
-## Demo (App.vue)
+## Demo
 
 ### online
 https://xiaolin1995.github.io/vue-fortune-wheel/demo/
@@ -148,6 +148,7 @@ export default {
 | canvas.radius | 圆的半径 (type: canvas) | Number | 250 |
 | canvas.textRadius | 文本距圆心的距离 (type: canvas) | Number | 190 |
 | canvas.textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
+| canvas.textDirection | 奖品文本方向 (horizontal, vertical) | String | horizontal |
 | canvas.lineHeight | 文本行高 (type: canvas) | Number | 20 |
 | canvas.borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
 | canvas.borderColor | 外边框的色值 (type: canvas) | String | transparent |
