@@ -77,11 +77,20 @@ const canvasDefaultConfig = {
 
 function getStrArray (str: string, len: number) {
   const arr = []
+
+  str += ' '
   while (str !== '') {
-    const text = str.substr(0, len)
-    str = str.replace(text, '')
-    arr.push(text)
+    const index = str.lastIndexOf(' ', len)
+
+    if (index === -1) {
+      arr.push(str)
+      break
+    }
+
+    arr.push(str.substr(0, index))
+    str = str.substring(index + 1)
   }
+
   return arr
 }
 
