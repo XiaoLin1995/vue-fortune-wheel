@@ -78,7 +78,11 @@ const canvasDefaultConfig = {
 function getStrArray (str: string, len: number) {
   const arr = []
   while (str !== '') {
-    const text = str.substr(0, len)
+    let text = str.substr(0, len)
+    if (str.charAt(len) !== '' && str.charAt(len) !== ' ') { // 如果存在下一行并且下一行首字符不为空格
+      const index = text.lastIndexOf(' ')
+      text = text.substr(0, index)
+    }
     str = str.replace(text, '')
     arr.push(text)
   }
