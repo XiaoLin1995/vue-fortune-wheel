@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import FortuneWheel from './components/FortuneWheel/index.vue'
+import FortuneWheel from './components/fortuneWheel/index.vue'
 
 interface PrizeConfig {
   /* eslint-disable */
@@ -79,6 +79,7 @@ export default Vue.extend({
       prizesCanvas: [
         {
           id: 1,
+          contentType: 'text',
           name: 'Blue', // 奖品名
           value: 'Blue\'s value', // 奖品值
           bgColor: '#45ace9', // 背景色
@@ -87,6 +88,7 @@ export default Vue.extend({
         },
         {
           id: 2,
+          contentType: 'text',
           name: 'Red',
           value: 'Red\'s value',
           bgColor: '#dd3832',
@@ -95,7 +97,8 @@ export default Vue.extend({
         },
         {
           id: 3,
-          name: 'Yellow',
+          contentType: 'image',
+          imageUri: 'https://perperook.ir/img/icons/offers.png',
           value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',

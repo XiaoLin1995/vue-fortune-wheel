@@ -39,7 +39,9 @@ import random from 'lodash/random'
 interface PrizeConfig {
   /* eslint-disable */
   id: number;
+  contentType: string; //text, image
   name: string;
+  imageUri: string;
   value: any;
   bgColor: string;
   color: string;
@@ -55,6 +57,7 @@ interface CanvasConfig {
   textLength: number;
   textDirection: string;
   lineHeight: number;
+  imageSize: number;
   borderWidth: number;
   borderColor: string;
   btnText: string;
@@ -68,6 +71,7 @@ const canvasDefaultConfig = {
   textLength: 6, // 奖品文本 1 行几个字符, 最多 2 行
   textDirection: 'horizontal', // 奖品文本方向
   lineHeight: 20, // 文本行高
+  imageSize: 64,
   borderWidth: 0, // 圆的外边框
   borderColor: 'transparent', // 外边框的颜色
   btnText: 'GO', // 开始按钮的文本
@@ -255,7 +259,11 @@ export default Vue.extend({
           // translate方法重新映射画布上的 (0, 0) 位置
           ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius, radius + Math.sin(angle + arc / 2) * textRadius)
           // rotate方法旋转当前的绘图
-          this.drawPrizeText(ctx, angle, arc, row.name)
+          if (row.contentType === 'image') {
+            this.drawPrizeImage(ctx, angle, arc, row.imageUri)
+          } else {
+            this.drawPrizeText(ctx, angle, arc, row.name)
+          }
           // 把当前画布返回（调整）到上一个save()状态之前
           ctx.restore()
           // ----绘制奖品结束----
@@ -278,6 +286,16 @@ export default Vue.extend({
         }
         ctx.fillText(text, textX, textY)
       })
+    },
+    drawPrizeImage (ctx: CanvasRenderingContext2D, angle: number, arc: number, imageUri: string) {
+      const { imageSize } = this.canvasConfig
+      ctx.rotate(angle + arc / 2 + Math.PI / 2)
+
+      const imageX = -imageSize / 2
+      const imageY = -imageSize / 2
+      const image = new Image(imageSize, imageSize)
+      image.src = imageUri
+      ctx.drawImage(image, imageX, imageY, imageSize, imageSize)
     },
     handleClick (): void {
       if (!this.canRotate) return
