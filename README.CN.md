@@ -69,6 +69,7 @@ export default {
       prizes: [
         {
           id: 1, //* 每个奖品唯一的 id, 大于 0 的整数
+          contentType: 'text',
           name: 'Blue', // 奖品名, type 为 canvas 时的显示值 (type 为 image 时无需此参数)
           value: 'Blue\' value', //* 奖品值, 旋转结束后的返回值
           bgColor: '#45ace9', // 背景色 (type 为 image 时无需此参数)
@@ -78,6 +79,7 @@ export default {
         },
         {
           id: 2,
+          contentType: 'text',
           name: 'Red',
           value: 'Red\' value',
           bgColor: '#dd3832',
@@ -87,7 +89,8 @@ export default {
         },
         {
           id: 3,
-          name: 'Yellow',
+          contentType: 'image',
+          imageUri: 'https://perperook.ir/img/icons/offers.png',
           value: 'Yellow\' value',
           bgColor: '#fef151',
           color: '#ffffff',
@@ -150,6 +153,7 @@ export default {
 | canvas.textLength | 奖品一行几个字符, 超出换行 (最多两行) | Number | 6 |
 | canvas.textDirection | 奖品文本方向 (horizontal, vertical) | String | horizontal |
 | canvas.lineHeight | 文本行高 (type: canvas) | Number | 20 |
+| canvas.imageSize | Image size (type: canvas) | Number | 64 |
 | canvas.borderWidth | 圆的外边框 (type: canvas) | Number | 0 |
 | canvas.borderColor | 外边框的色值 (type: canvas) | String | transparent |
 | canvas.btnText | 按钮文本 (type: canvas) | String | GO |
