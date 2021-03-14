@@ -68,7 +68,7 @@ export default {
       cavansVerify: true, // canvas 模式的转盘是否开启验证
       prizes: [
         {
-          id: 1, //* 每个奖品唯一的 id, 大于 0 的整数
+          id: '1', //* 每个奖品唯一的 id, 大于 0 的整数
           contentType: 'text',
           name: 'Blue', // 奖品名, type 为 canvas 时的显示值 (type 为 image 时无需此参数)
           value: 'Blue\' value', //* 奖品值, 旋转结束后的返回值
@@ -78,7 +78,7 @@ export default {
           weight: 1 // 权重, 如果 useWeight 为 true, 则以 weight 计算概率 (即 probability 无效), weight 必须为整数
         },
         {
-          id: 2,
+          id: '2',
           contentType: 'text',
           name: 'Red',
           value: 'Red\' value',
@@ -88,7 +88,7 @@ export default {
           weight: 1
         },
         {
-          id: 3,
+          id: '3',
           contentType: 'image',
           imageUri: 'https://perperook.ir/img/icons/offers.png',
           value: 'Yellow\' value',

@@ -71,7 +71,7 @@ export default {
       },
       prizes: [
         {
-          id: 1, //* The unique id of each prize, an integer greater than 0
+          id: '1', //* The unique id of each prize, a string
           contentType: 'text',
           name: 'Blue', // Prize name, display value when type is canvas (this parameter is not needed when type is image)
           value: 'Blue\'s value', //* Prize value, return value after spinning
@@ -81,7 +81,7 @@ export default {
           weight: 1 // Weight, if useWeight is true, the probability is calculated by weight (weight must be an integer), so probability is invalid
         },
         {
-          id: 2,
+          id: '2',
           contentType: 'text',
           name: 'Red',
           value: 'Red\'s value',
@@ -91,7 +91,7 @@ export default {
           weight: 1
         },
         {
-          id: 3,
+          id: '3',
           contentType: 'image',
           imageUri: 'https://perperook.ir/img/icons/offers.png',
           value: 'Yellow\'s value',
