@@ -38,7 +38,7 @@ import random from 'lodash/random'
 
 interface PrizeConfig {
   /* eslint-disable */
-  id: number;
+  id: string;
   contentType: string; //text, image
   name: string;
   imageUri: string;
@@ -125,8 +125,8 @@ export default Vue.extend({
       default: 10 // 旋转角度的基数, 旋转的圈数 360 * 10
     },
     prizeId: {
-      type: Number,
-      default: 0 // 0 时不使用, 其他值时, 旋转的结果为此 Id 的奖品, 可在旋转中改变
+      type: String,
+      default: '' // 0 时不使用, 其他值时, 旋转的结果为此 Id 的奖品, 可在旋转中改变
     },
     prizes: {
       type: Array as PropType<PrizeConfig[]>,
@@ -152,8 +152,8 @@ export default Vue.extend({
       return sumBy(this.prizes, (row: PrizeConfig) => row.probability || 0)
     },
     // 为了概率生成的奖品id的数组
-    prizesIdArr (): Array<number> {
-      const idArr: number[] = []
+    prizesIdArr (): Array<string> {
+      const idArr: string[] = []
       this.prizes.forEach((row) => {
         const count: number = this.useWeight ? (row.weight || 0) : ((row.probability || 0) * this.decimalSpaces)
         const arr = (new Array(count)).fill(row.id)
@@ -319,13 +319,13 @@ export default Vue.extend({
       this.$emit('rotateEnd', this.prizeRes)
     },
     // 获取随机奖品的 id
-    getRandomPrize (): number {
+    getRandomPrize (): string {
       const len = this.prizesIdArr.length
       const prizeId = this.prizesIdArr[random(0, len - 1)]
       return prizeId
     },
     // 获取奖品所在的角度
-    getTargetDeg (prizeId: number): number {
+    getTargetDeg (prizeId: string): number {
       const angle = 360 / this.prizes.length
       const num = this.prizes.findIndex(row => row.id === prizeId)
       this.prizeRes = this.prizes[num]
