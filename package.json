@@ -24,7 +24,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib --name vue-fortune-wheel --dest lib src/components/FortuneWheel/install.js"
+    "build:lib": "vue-cli-service build --target lib --name vue-fortune-wheel --dest lib src/components/fortuneWheel/install.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
