@@ -220,7 +220,7 @@ export default Vue.extend({
     this.prizes.forEach(element => {
       element.image = new Image()
       element.image.src = element.imageUri
-    }); 
+    })
   },
   mounted (): void {
     if (this.type === 'canvas') this.drawCanvas()
