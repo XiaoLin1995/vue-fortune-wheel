@@ -42,6 +42,7 @@ interface PrizeConfig {
   contentType: string; //text, image
   name: string;
   imageUri: string;
+  image: HTMLImageElement,
   value: any;
   bgColor: string;
   color: string;
@@ -216,6 +217,10 @@ export default Vue.extend({
   },
   created (): void {
     this.checkProbability()
+    this.prizes.forEach(element => {
+      element.image = new Image()
+      element.image.src = element.imageUri
+    }); 
   },
   mounted (): void {
     if (this.type === 'canvas') this.drawCanvas()
@@ -260,7 +265,7 @@ export default Vue.extend({
           ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius, radius + Math.sin(angle + arc / 2) * textRadius)
           // rotate方法旋转当前的绘图
           if (row.contentType === 'image') {
-            this.drawPrizeImage(ctx, angle, arc, row.imageUri)
+            this.drawPrizeImage(ctx, angle, arc, row.image)
           } else {
             this.drawPrizeText(ctx, angle, arc, row.name)
           }
@@ -287,14 +292,12 @@ export default Vue.extend({
         ctx.fillText(text, textX, textY)
       })
     },
-    drawPrizeImage (ctx: CanvasRenderingContext2D, angle: number, arc: number, imageUri: string) {
+    drawPrizeImage (ctx: CanvasRenderingContext2D, angle: number, arc: number, image: HTMLImageElement) {
       const { imageSize } = this.canvasConfig
       ctx.rotate(angle + arc / 2 + Math.PI / 2)
 
       const imageX = -imageSize / 2
       const imageY = -imageSize / 2
-      const image = new Image(imageSize, imageSize)
-      image.src = imageUri
       ctx.drawImage(image, imageX, imageY, imageSize, imageSize)
     },
     handleClick (): void {
