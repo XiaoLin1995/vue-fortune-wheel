@@ -213,17 +213,25 @@ export default Vue.extend({
         nowEndDeg += -360 - angle
       }
       this.rotateEndDeg = nowEndDeg
+    },
+    prizes (newVal: PrizeConfig[]): void {
+      newVal.filter(p => p.contentType === 'image').forEach(element => {
+        element.image = new Image()
+        element.image.src = element.imageUri
+      })
     }
   },
   created (): void {
     this.checkProbability()
-    this.prizes.forEach(element => {
+  },
+  mounted (): void {
+    this.prizes.filter(p => p.contentType === 'image').forEach(element => {
       element.image = new Image()
       element.image.src = element.imageUri
     })
-  },
-  mounted (): void {
-    if (this.type === 'canvas') this.drawCanvas()
+    setTimeout(() => {
+      if (this.type === 'canvas') this.drawCanvas()
+    }, 1000)
   },
   methods: {
     // 检测总概率是否为 100
