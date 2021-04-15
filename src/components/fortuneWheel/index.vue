@@ -38,8 +38,11 @@ import random from 'lodash/random'
 
 interface PrizeConfig {
   /* eslint-disable */
-  id: number;
+  id: string;
+  contentType: string; //text, image
   name: string;
+  imageUri: string;
+  image: HTMLImageElement,
   value: any;
   bgColor: string;
   color: string;
@@ -55,6 +58,7 @@ interface CanvasConfig {
   textLength: number;
   textDirection: string;
   lineHeight: number;
+  imageSize: number;
   borderWidth: number;
   borderColor: string;
   btnText: string;
@@ -68,6 +72,7 @@ const canvasDefaultConfig = {
   textLength: 6, // 奖品文本 1 行几个字符, 最多 2 行
   textDirection: 'horizontal', // 奖品文本方向
   lineHeight: 20, // 文本行高
+  imageSize: 64,
   borderWidth: 0, // 圆的外边框
   borderColor: 'transparent', // 外边框的颜色
   btnText: 'GO', // 开始按钮的文本
@@ -125,8 +130,8 @@ export default Vue.extend({
       default: 10 // 旋转角度的基数, 旋转的圈数 360 * 10
     },
     prizeId: {
-      type: Number,
-      default: 0 // 0 时不使用, 其他值时, 旋转的结果为此 Id 的奖品, 可在旋转中改变
+      type: String,
+      default: '' // 0 时不使用, 其他值时, 旋转的结果为此 Id 的奖品, 可在旋转中改变
     },
     prizes: {
       type: Array as PropType<PrizeConfig[]>,
@@ -152,8 +157,8 @@ export default Vue.extend({
       return sumBy(this.prizes, (row: PrizeConfig) => row.probability || 0)
     },
     // 为了概率生成的奖品id的数组
-    prizesIdArr (): Array<number> {
-      const idArr: number[] = []
+    prizesIdArr (): Array<string> {
+      const idArr: string[] = []
       this.prizes.forEach((row) => {
         const count: number = this.useWeight ? (row.weight || 0) : ((row.probability || 0) * this.decimalSpaces)
         const arr = (new Array(count)).fill(row.id)
@@ -212,13 +217,25 @@ export default Vue.extend({
         nowEndDeg += -360 - angle
       }
       this.rotateEndDeg = nowEndDeg
+    },
+    prizes (newVal: PrizeConfig[]): void {
+      newVal.filter(p => p.contentType === 'image').forEach(element => {
+        element.image = new Image()
+        element.image.src = element.imageUri
+      })
     }
   },
   created (): void {
     this.checkProbability()
   },
   mounted (): void {
-    if (this.type === 'canvas') this.drawCanvas()
+    this.prizes.filter(p => p.contentType === 'image').forEach(element => {
+      element.image = new Image()
+      element.image.src = element.imageUri
+    })
+    setTimeout(() => {
+      if (this.type === 'canvas') this.drawCanvas()
+    }, 1000)
   },
   methods: {
     // 检测总概率是否为 100
@@ -259,7 +276,11 @@ export default Vue.extend({
           // translate方法重新映射画布上的 (0, 0) 位置
           ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius, radius + Math.sin(angle + arc / 2) * textRadius)
           // rotate方法旋转当前的绘图
-          this.drawPrizeText(ctx, angle, arc, row.name)
+          if (row.contentType === 'image') {
+            this.drawPrizeImage(ctx, angle, arc, row.image)
+          } else {
+            this.drawPrizeText(ctx, angle, arc, row.name)
+          }
           // 把当前画布返回（调整）到上一个save()状态之前
           ctx.restore()
           // ----绘制奖品结束----
@@ -283,6 +304,14 @@ export default Vue.extend({
         ctx.fillText(text, textX, textY)
       })
     },
+    drawPrizeImage (ctx: CanvasRenderingContext2D, angle: number, arc: number, image: HTMLImageElement) {
+      const { imageSize } = this.canvasConfig
+      ctx.rotate(angle + arc / 2 + Math.PI / 2)
+
+      const imageX = -imageSize / 2
+      const imageY = -imageSize / 2
+      ctx.drawImage(image, imageX, imageY, imageSize, imageSize)
+    },
     handleClick (): void {
       if (!this.canRotate) return
       if (this.verify) {
@@ -305,13 +334,13 @@ export default Vue.extend({
       this.$emit('rotateEnd', this.prizeRes)
     },
     // 获取随机奖品的 id
-    getRandomPrize (): number {
+    getRandomPrize (): string {
       const len = this.prizesIdArr.length
       const prizeId = this.prizesIdArr[random(0, len - 1)]
       return prizeId
     },
     // 获取奖品所在的角度
-    getTargetDeg (prizeId: number): number {
+    getTargetDeg (prizeId: string): number {
       const angle = 360 / this.prizes.length
       const num = this.prizes.findIndex(row => row.id === prizeId)
       this.prizeRes = this.prizes[num]

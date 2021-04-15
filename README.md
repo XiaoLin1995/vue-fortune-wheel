@@ -71,7 +71,8 @@ export default {
       },
       prizes: [
         {
-          id: 1, //* The unique id of each prize, an integer greater than 0
+          id: '1', //* The unique id of each prize, a string
+          contentType: 'text',
           name: 'Blue', // Prize name, display value when type is canvas (this parameter is not needed when type is image)
           value: 'Blue\'s value', //* Prize value, return value after spinning
           bgColor: '#45ace9', // Background color (no need for this parameter when type is image)
@@ -80,7 +81,8 @@ export default {
           weight: 1 // Weight, if useWeight is true, the probability is calculated by weight (weight must be an integer), so probability is invalid
         },
         {
-          id: 2,
+          id: '2',
+          contentType: 'text',
           name: 'Red',
           value: 'Red\'s value',
           bgColor: '#dd3832',
@@ -89,8 +91,9 @@ export default {
           weight: 1
         },
         {
-          id: 3,
-          name: 'Yellow',
+          id: '3',
+          contentType: 'image',
+          imageUri: 'https://perperook.ir/img/icons/offers.png',
           value: 'Yellow\'s value',
           bgColor: '#fef151',
           color: '#ffffff',
@@ -153,6 +156,7 @@ export default {
 | canvas.textLength | A few characters in one line of the prize, beyond the line break (maximum two lines) | Number | 6 |
 | canvas.textDirection | Prize text direction (horizontal, vertical) | String | horizontal |
 | canvas.lineHeight | Text line height (type: canvas) | Number | 20 |
+| canvas.imageSize | Image size (type: canvas) | Number | 64 |
 | canvas.borderWidth | Round outer border (type: canvas) | Number | 0 |
 | canvas.borderColor | Color value of the outer border (type: canvas) | String | transparent |
 | canvas.btnText | Button text (type: canvas) | String | GO |
