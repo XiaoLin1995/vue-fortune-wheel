@@ -1,10 +1,11 @@
 {
   "name": "vue-fortune-wheel",
-  "version": "1.0.3",
+  "version": "2.0.0",
+  "type": "module",
   "author": "Xiaolin Zhu",
   "license": "MIT",
   "bugs": {
-    "email": "xiaolin.sky@gmail.com"
+    "email": "290353548@qq.com"
   },
   "keywords": [
     "wheel-of-fortune",
@@ -18,44 +19,31 @@
     "vue-转盘"
   ],
   "description": "Component \"Wheel of Fortune\" for Vue",
-  "main": "lib/vue-fortune-wheel.umd.min.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib --name vue-fortune-wheel --dest lib src/components/FortuneWheel/install.js"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "files": ["dist"],
+  "main": "./dist/vue-fortune-wheel.umd.cjs",
+  "module": "./dist/vue-fortune-wheel.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-fortune-wheel.js",
+      "require": "./dist/vue-fortune-wheel.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "lodash": "^4.17.20",
-    "normalize.css": "^8.0.1",
-    "vue": "^2.6.11"
+    "lodash": "^4.17.21",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/lodash": "^4.14.162",
-    "@types/mocha": "^5.2.4",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-plugin-unit-mocha": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "@vue/eslint-config-typescript": "^5.0.2",
-    "@vue/test-utils": "^1.0.3",
-    "chai": "^4.1.2",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "@types/lodash": "^4.14.194",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "sass": "^1.62.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2",
+    "vue-tsc": "^1.4.2"
   }
 }

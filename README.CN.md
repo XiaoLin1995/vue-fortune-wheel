@@ -1,9 +1,13 @@
 
-# Vue-Fortune-Wheel
+# Vue-Fortune-Wheel For Vue3
 
 组件名称: Wheel of Fortune, 命运之轮, 幸运转盘
 
 应用场景: 抽奖
+
+# Vue-Fortune-Wheel For Vue2
+[查看](https://github.com/XiaoLin1995/vue-fortune-wheel/tree/vue2)
+
 
 ## Install
 ```
@@ -13,6 +17,7 @@ or
 ```
 npm install vue-fortune-wheel
 ```
+
 ## Language
 
 [English (By Google Translate)](./README.md)| [中文](./README.CN.md)
@@ -57,7 +62,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 
 ```js
 import FortuneWheel from 'vue-fortune-wheel'
-import 'vue-fortune-wheel/lib/vue-fortune-wheel.css'
+import 'vue-fortune-wheel/style.css'
 
 export default {
   components: {

@@ -1,9 +1,12 @@
 
-# Vue-Fortune-Wheel
+# Vue-Fortune-Wheel For Vue3
 
 Component name: Wheel of Fortune, Wheel of Fortune, Wheel of Fortune
 
 Application scenario: lottery
+
+# Vue-Fortune-Wheel For Vue2
+[Viewing Documents](https://github.com/XiaoLin1995/vue-fortune-wheel/tree/vue2)
 
 ## Install
 ```
@@ -56,7 +59,7 @@ https://xiaolin1995.github.io/vue-fortune-wheel/demo/
 
 ```js
 import FortuneWheel from 'vue-fortune-wheel'
-import 'vue-fortune-wheel/lib/vue-fortune-wheel.css'
+import 'vue-fortune-wheel/style.css'
 
 export default {
   components: {

@@ -27,8 +27,12 @@
           @rotateStart="onImageRotateStart"
           @rotateEnd="onRotateEnd"
         >
-          <img slot="wheel" src="@/assets/wheel.png" style="transform: rotateZ(60deg)" />
-          <img slot="button" src="@/assets/button.png" style="width: 180px"/>
+          <template #wheel>
+            <img src="./assets/wheel.png" style="transform: rotateZ(60deg)" />
+          </template>
+          <template #button>
+            <img src="./assets/button.png" style="width: 180px"/>
+          </template>
         </FortuneWheel>
 
         <div class="btn-list">
@@ -45,11 +49,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import FortuneWheel from './components/FortuneWheel/index.vue'
 
 interface PrizeConfig {
-  /* eslint-disable */
   id: number;
   name: string;
   value: any;
@@ -58,10 +60,9 @@ interface PrizeConfig {
   probability: number;
   weight: number;
   [propName: string]: any;
-  /* eslint-enable */
 }
 
-export default Vue.extend({
+export default {
   name: 'App',
   components: {
     FortuneWheel
@@ -122,8 +123,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    prizeRes (): object {
-      return this.prizesImage.filter(item => item.id === this.prizeId)[0] || {}
+    prizeRes (): PrizeConfig {
+      return (this.prizesCanvas.find(item => item.id === this.prizeId) || this.prizesCanvas[0]) as PrizeConfig
     }
   },
   methods: {
@@ -160,10 +161,10 @@ export default Vue.extend({
       })
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>
 @import './styles/bootstrap-grid.min.css';
-@import './app.scss';
+@import './style.scss';
 </style>
