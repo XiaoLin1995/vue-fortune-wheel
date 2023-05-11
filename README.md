@@ -7,11 +7,11 @@ Application scenario: lottery
 
 ## Install
 ```
-yarn add vue-fortune-wheel
+yarn add vue-fortune-wheel@~1
 ```
 or
 ```
-npm install vue-fortune-wheel
+npm install vue-fortune-wheel@~1
 ```
 ## Language
 
