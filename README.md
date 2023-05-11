@@ -5,7 +5,7 @@ Component name: Wheel of Fortune, Wheel of Fortune, Wheel of Fortune
 
 Application scenario: lottery
 
-# Vue-Fortune-Wheel For Vue2
+## Vue-Fortune-Wheel For Vue2
 [Viewing Documents](https://github.com/XiaoLin1995/vue-fortune-wheel/tree/vue2)
 
 ## Install

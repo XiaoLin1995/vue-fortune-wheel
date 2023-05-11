@@ -5,7 +5,7 @@
 
 应用场景: 抽奖
 
-# Vue-Fortune-Wheel For Vue2
+## Vue-Fortune-Wheel For Vue2
 [查看](https://github.com/XiaoLin1995/vue-fortune-wheel/tree/vue2)
 
 
