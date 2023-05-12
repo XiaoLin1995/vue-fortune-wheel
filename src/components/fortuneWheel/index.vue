@@ -37,15 +37,15 @@ import { useCanvas } from './hooks/useCanvas'
 import { useRotate } from './hooks/useRotate'
 
 interface PropsType {
-  type: string;
-  useWeight: boolean;
-  disabled: boolean;
-  verify: boolean;
-  canvas: CanvasConfig;
-  duration: number;
-  timingFun: string;
-  angleBase: number;
-  prizeId: number;
+  type?: string;
+  useWeight?: boolean;
+  disabled?: boolean;
+  verify?: boolean;
+  canvas?: CanvasConfig;
+  duration?: number;
+  timingFun?: string;
+  angleBase?: number;
+  prizeId?: number;
   prizes: PrizeConfig[];
 }
 
@@ -69,6 +69,12 @@ const emit = defineEmits(['rotateStart', 'rotateEnd'])
 
 const { wheelEl, canvasConfig } = useCanvas(props)
 const { handleClick, rotateStyle, onRotateEnd } = useRotate(props, emit)
+
+defineExpose({
+  startRotate: (): void => {
+    handleClick()
+  }
+})
 </script>
 
 <style lang="scss" scoped>
